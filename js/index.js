@@ -7,7 +7,8 @@ const submitBtn = document.getElementById("submitBtn");
 const closeBtn = document.getElementById("closeBtn");
 
 const searchInput = document.getElementById("searchInput");
-const popUpCard  = document.getElementById("popCard");
+
+const popUpCard = document.getElementById("popCard");
 
 let currentIndex = 0;
 
@@ -26,7 +27,6 @@ submitBtn.onclick = function addBookMark() {
             bookMark: siteName.value,
             url: siteUrl.value,
         }
-    
         bookMarks.push(inputData);
         localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
         displayData();
@@ -69,6 +69,7 @@ function displayData() {
 
 function deleteBookMark(index) {
     bookMarks.splice(index, 1);
+    localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
     displayData();
 }
 
@@ -87,7 +88,7 @@ function clearForm() {
 function updateSiteData(index) {
     currentIndex = index;
     siteName.value = bookMarks[index].bookMark,
-    siteUrl.value = bookMarks[index].url;
+        siteUrl.value = bookMarks[index].url;
 
     submitBtn.classList.add("d-none");
     editBtn.classList.remove("d-none");
@@ -103,7 +104,7 @@ function confirmEdit() {
         localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
         displayData();
         clearForm();
-    
+
         submitBtn.classList.remove("d-none");
         editBtn.classList.add("d-none");
     } else {
@@ -151,7 +152,7 @@ function validationBookMarkName() {
     const regex = /^[\w-\s]{3,}$/;
     const validateSiteName = siteName.value;
 
-    if (regex.test(validateSiteName) ) {
+    if (regex.test(validateSiteName)) {
         siteName.classList.add("is-valid");
         siteName.classList.remove("is-invalid");
         return true;
@@ -164,10 +165,10 @@ function validationBookMarkName() {
 }
 
 function validationBookMarkUrl() {
-    const regex =/^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+    const regex = /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
     const validateSiteUrl = siteUrl.value;
 
-    if (regex.test(validateSiteUrl) ) {
+    if (regex.test(validateSiteUrl)) {
         siteUrl.classList.add("is-valid");
         siteUrl.classList.remove("is-invalid");
         return true;
@@ -176,7 +177,6 @@ function validationBookMarkUrl() {
         siteUrl.classList.add("is-invalid");
         return false;
     }
-
 }
 
 // close card
@@ -187,7 +187,7 @@ function closeCard() {
 
 closeBtn.addEventListener("click", closeCard);
 
-window.addEventListener("click", function (e) {
+addEventListener("click", function (e) {
     if (e.target.classList.contains("popup_card")) {
         closeCard();
     }
