@@ -233,4 +233,5 @@ clearBtn.onclick = function clearAll(){
     bookMarks.splice(0, bookMarks.length);
     localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
     displayData();
+    appendAlert('All Bookmarks are deleted', 'danger');
 }
