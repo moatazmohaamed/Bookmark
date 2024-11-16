@@ -1,4 +1,4 @@
-const siteName = document.getElementById("siteName");
+tbconst siteName = document.getElementById("siteName");
 const siteUrl = document.getElementById("siteUrl");
 const rowData = document.getElementById("rowData");
 
@@ -233,5 +233,4 @@ clearBtn.onclick = function clearAll(){
     bookMarks.splice(0, bookMarks.length);
     localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
     displayData();
-    appendAlert('All Bookmarks are deleted.', 'danger')
 }
