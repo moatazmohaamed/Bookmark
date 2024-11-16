@@ -9,6 +9,7 @@ const closeBtn = document.getElementById("closeBtn");
 const searchInput = document.getElementById("searchInput");
 
 const popUpCard = document.getElementById("popCard");
+const clearBtn = document.getElementById("clearBtn")
 
 let currentIndex = 0;
 
@@ -31,6 +32,8 @@ submitBtn.onclick = function addBookMark() {
         localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
         displayData();
         clearForm();
+        appendAlert('Great! , You Added a Bookmark!!', 'success')
+
     } else {
         popUpCard.classList.remove("d-none")
     }
@@ -63,6 +66,12 @@ function displayData() {
         `
     }
     rowData.innerHTML = tableRow;
+    
+    if (tableRow) {
+        clearBtn.classList.remove("d-none")
+    }else{
+        clearBtn.classList.add("d-none")
+    }
 }
 
 // Delete sites
@@ -71,6 +80,7 @@ function deleteBookMark(index) {
     bookMarks.splice(index, 1);
     localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
     displayData();
+    appendAlert('Bookmark has been deleted!', 'danger')
 }
 
 // clear inputs after add
@@ -88,7 +98,7 @@ function clearForm() {
 function updateSiteData(index) {
     currentIndex = index;
     siteName.value = bookMarks[index].bookMark,
-        siteUrl.value = bookMarks[index].url;
+    siteUrl.value = bookMarks[index].url;
 
     submitBtn.classList.add("d-none");
     editBtn.classList.remove("d-none");
@@ -107,6 +117,7 @@ function confirmEdit() {
 
         submitBtn.classList.remove("d-none");
         editBtn.classList.add("d-none");
+        appendAlert('Edited!', 'dark')
     } else {
         submitBtn.onclick = popUpCard.classList.remove("d-none")
     }
@@ -192,3 +203,34 @@ addEventListener("click", function (e) {
         closeCard();
     }
 });
+
+
+
+// alert
+
+function appendAlert(message, type) {
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = [
+        `<div class="alert alert-${type} alert-dismissible" role="alert">`,
+        `   <div>${message}</div>`,
+        '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+        '</div>'
+    ].join('');
+
+    alertPlaceholder.append(wrapper);
+
+    setTimeout(() => {
+        wrapper.querySelector('.btn-close').click();
+    }, 3000);
+}
+
+// clear bookmarks
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+clearBtn.onclick = function clearAll(){
+    bookMarks.splice(0, bookMarks.length);
+    localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
+    displayData();
+}
