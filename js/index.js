@@ -1,4 +1,4 @@
-tbconst siteName = document.getElementById("siteName");
+const siteName = document.getElementById("siteName");
 const siteUrl = document.getElementById("siteUrl");
 const rowData = document.getElementById("rowData");
 
@@ -117,7 +117,7 @@ function confirmEdit() {
 
         submitBtn.classList.remove("d-none");
         editBtn.classList.add("d-none");
-        appendAlert('Edited!', 'dark')
+        appendAlert('Edited!', 'dark');
     } else {
         submitBtn.onclick = popUpCard.classList.remove("d-none")
     }
@@ -207,7 +207,6 @@ addEventListener("click", function (e) {
 
 
 // alert
-
 function appendAlert(message, type) {
     const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
     const wrapper = document.createElement('div');
@@ -225,12 +224,15 @@ function appendAlert(message, type) {
     }, 3000);
 }
 
-// clear bookmarks
+// bootstrap alert
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
+
+// clear table
 clearBtn.onclick = function clearAll(){
     bookMarks.splice(0, bookMarks.length);
     localStorage.setItem("bookMarksInfoContainer", JSON.stringify(bookMarks));
     displayData();
+    appendAlert('All Bookmarks are deleted!', 'info');
 }
